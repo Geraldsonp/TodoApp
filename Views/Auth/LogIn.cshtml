@@ -1,0 +1,33 @@
+﻿@using TodoApp.Models.ViewModels
+@model TodoApp.Models.ViewModels.LogInViewModel?
+
+@{
+    ViewBag.Title = "LogIn";
+    Layout = "_Layout";
+}
+
+@if (Model is not null && Model.Result.HasValue)
+{
+    <span class="badge text-danger">@Model.Result.Value.ErrorMessage</span>
+}
+
+<div class="container-sm">
+    <div class="w-75 bg-dark px-3 rounded-2 mx-auto my-auto">
+        <form asp-controller="Auth" asp-action="LogIn" class="d-flex flex-column text-white justify-content-center align-content-center pt-5 px-5">
+
+            <h3 class="text-center">LOGIN</h3>
+
+            <p class="text-center">Please Enter your log in credentials</p>
+
+            <input asp-for="UserName" class="form-control " type="text" id="UserName" placeholder="User Name">
+
+            <input asp-for="Password" class="form-control mt-3" type="password" placeholder="Password">
+
+            <a class="link-danger d-block mt-4 text-center btn">Forgor Password?</a>
+
+            <a class="link-danger d-block text-center btn">Demo It</a>
+
+            <button type="submit" class="btn-outline-light btn my-3">LogIn</button>
+        </form>
+    </div>
+</div>

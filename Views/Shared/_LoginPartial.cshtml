@@ -1,0 +1,17 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@if (Context.User.Identity.IsAuthenticated)
+{
+    <li class="nav-item ms-auto">
+        <p class="text-success">Hi @Context.User.Identity.Name</p>
+    </li>
+    <li class="nav-item ms-1">
+        <a class="btn btn-outline-danger" asp-controller="Auth" asp-action="SingOut">Log Out</a>
+    </li>
+}
+else
+{
+    <li class="nav-item ms-auto">
+        <a asp-controller="Auth" asp-action="LogIn" class="link-primary">Log In</a>
+    </li>
+}

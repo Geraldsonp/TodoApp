@@ -35,7 +35,7 @@ public class AuthController : Controller
             return View(logInViewModel);
         }
 
-        return RedirectToAction("index", "Home");
+        return RedirectToAction("index", "Todo");
     }
 
     [HttpGet]
@@ -60,13 +60,13 @@ public class AuthController : Controller
             return View(viewModel);
         }
 
-        return RedirectToAction("Index", "Home");
+        return RedirectToAction("Index", "Todo");
     }
 
     [HttpGet]
     public async Task<IActionResult> SingOut()
     {
         await _userBusiness.SingOut();
-        return RedirectToAction("index", "Home");
+        return RedirectToAction("index", "Todo");
     }
 }

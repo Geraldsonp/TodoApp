@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TodoApp.Database;
@@ -9,7 +10,15 @@ using TodoApp.Services.Interfaces;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddDbContext<TodoDbContext>(x => x.UseSqlite(builder.Configuration.GetConnectionString("Default")));
+builder.Services.AddControllersWithViews()
+    .AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+builder.Services.AddAuthorization();
+builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddDbContext<TodoDbContext>(x =>
+    x.UseSqlite(builder.Configuration.GetConnectionString("Default"))
+        .UseLazyLoadingProxies());
+
 builder.Services.Configure<JwtSettings>(builder.Configuration);
 
 builder.Services.AddIdentity<User, IdentityRole>(options =>
@@ -27,10 +36,17 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
     options.User.RequireUniqueEmail = false;
 }).AddEntityFrameworkStores<TodoDbContext>();
 
+builder.Services.ConfigureApplicationCookie(opt =>
+{
+    opt.LoginPath = "/auth/LogIn";
+    opt.LogoutPath = "/Auth/Logout";
+});
+
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IUserBusiness, UserBusiness>();
-builder.Services.AddAuthorization();
-builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<ITodoBusiness, TodoBusiness>();
+builder.Services.AddScoped<IUserIdProvider, UserIdProvider>();
+builder.Services.AddScoped<ITodoListBusiness, TodoListBusiness>();
 
 var app = builder.Build();
 
@@ -51,6 +67,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Todo}/{action=Index}/{id?}");
 
 app.Run();

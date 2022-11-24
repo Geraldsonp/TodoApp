@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TodoApp.Database;
 
@@ -10,9 +11,10 @@ using TodoApp.Database;
 namespace TodoApp.Database.MIgrations
 {
     [DbContext(typeof(TodoDbContext))]
-    partial class TodoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221119231158_AddTodoItem")]
+    partial class AddTodoItem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.11");
@@ -155,42 +157,9 @@ namespace TodoApp.Database.MIgrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<bool>("IsCompleted")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("OwnerId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<int?>("TodoListId")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("TodoListId");
 
                     b.ToTable("Todos");
-                });
-
-            modelBuilder.Entity("TodoApp.Models.Entity.TodoListController", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("ListName")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("OwnerId")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OwnerId");
-
-                    b.ToTable("TodoLists");
                 });
 
             modelBuilder.Entity("TodoApp.Models.Entity.User", b =>
@@ -312,34 +281,6 @@ namespace TodoApp.Database.MIgrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("TodoApp.Models.Entity.Todo", b =>
-                {
-                    b.HasOne("TodoApp.Models.Entity.TodoListController", null)
-                        .WithMany("Todos")
-                        .HasForeignKey("TodoListId");
-                });
-
-            modelBuilder.Entity("TodoApp.Models.Entity.TodoListController", b =>
-                {
-                    b.HasOne("TodoApp.Models.Entity.User", "Owner")
-                        .WithMany("TodosLists")
-                        .HasForeignKey("OwnerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Owner");
-                });
-
-            modelBuilder.Entity("TodoApp.Models.Entity.TodoListController", b =>
-                {
-                    b.Navigation("Todos");
-                });
-
-            modelBuilder.Entity("TodoApp.Models.Entity.User", b =>
-                {
-                    b.Navigation("TodosLists");
                 });
 #pragma warning restore 612, 618
         }

@@ -2,6 +2,17 @@ html {
   font-size: 14px;
 }
 
+input[type=checkbox]
+{
+  /* Double-sized Checkboxes */
+  -ms-transform: scale(1.5); /* IE */
+  -moz-transform: scale(1.5); /* FF */
+  -webkit-transform: scale(1.5); /* Safari and Chrome */
+  -o-transform: scale(1.5); /* Opera */
+  transform: scale(1.5);
+  padding: 10px;
+}
+
 @media (min-width: 768px) {
   html {
     font-size: 16px;
@@ -15,4 +26,20 @@ html {
 
 body {
   margin-bottom: 60px;
+}
+.TodoItem > div + a {
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.5s linear;
+}
+.TodoItem:hover > div + a {
+  visibility: visible;
+  opacity: 1;
+}
+
+.TodoLabel{
+
+}
+input:disabled{
+  text-decoration-line: line-through;
 }

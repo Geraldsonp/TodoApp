@@ -12,7 +12,7 @@
 
 <div class="container">
     <div class=" px-3 rounded-2 mx-auto my-auto">
-        <form asp-action="SingUp" asp-controller="Auth" class="d-flex flex-column justify-content-center align-content-center pt-5 px-5">
+        <form asp-action="SingUp" asp-controller="Auth" class="d-flex auth-form flex-column justify-content-center align-items-center pt-5 px-5">
             <h2 class="text-center">Sing Up</h2>
             <p class="text-center">Please Create your account</p>
             <input class="form-control mb-2" asp-for="FullName" type="text" autocomplete="off" id="FullName" placeholder="Full Name">
@@ -24,8 +24,8 @@
             <input class="form-control mb-2" asp-for="ConfirmPassword" autocomplete="off" type="password" id="ConfirmPassword" placeholder="Confirm Password">
             <span class="text-danger" asp-validation-for="ConfirmPassword"></span>
             <a class="link-danger d-block mt-4 text-center btn" asp-controller="Auth" asp-action="LogIn">Already have an accoutn? Log In</a>
-            <a class="link-danger d-block text-center btn">Demo It</a>
-            <button class="btn-success btn my-3" type="submit">Sing Up</button>
+            <button class="btn-primary w-50 btn my-3" type="submit">Sing Up</button>
+            <a asp-controller="Auth" asp-action="DemoLogIn" class="d-block w-25 text-center btn btn-outline-warning my-3">Demo It</a>
         </form>
     </div>
 </div>

@@ -1,5 +1,4 @@
-﻿
-@model TodoApp.Models.ViewModels.TodoViewModels.IndexViewModel
+﻿@model TodoApp.Models.ViewModels.TodoViewModels.IndexViewModel
 
 
 @{
@@ -21,16 +20,14 @@
         <div class="mb-2">
             <form method="post" id="CrateTodoForm">
                 <input autofocus="autofocus" class="w-100 rounded-1 form-control-lg fs-3 pb-3 px-3" autocomplete="off" placeholder="Write your todo Item" id="TodoContent" type="text" asp-for="Content">
-                <button type="submit" class="btn btn-outline-success visually-hidden" title="Create New List" >Add</button>
+                <button type="submit" class="btn btn-outline-success visually-hidden" title="Create New List">Add</button>
             </form>
         </div>
-        <ul id="TodoListContainer" class="list-group">
-            <div id="spinner" class="text-center">
-              <div class="spinner-border Loading-spinner" style="width: 5rem; height: 5rem;" role="status">
-                <span class="visually-hidden">Loading...</span>
-              </div>
-            </div>
-        </ul>
+        <ul id="TodoListContainer" class="list-group overflow-hidden"><div id="spinner" class="text-center">
+                <div class="spinner-border Loading-spinner" style="width: 5rem; height: 5rem;" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div></ul>
     </div>
 </section>
 

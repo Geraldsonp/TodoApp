@@ -37,9 +37,48 @@ body {
   opacity: 1;
 }
 
+.TodoItem:hover  {
+  background-color: #210748;
+  cursor: pointer;
+}
+
 .TodoLabel{
 
 }
 input:disabled{
   text-decoration-line: line-through;
+}
+
+.Add-Todo-Animation{
+  animation: addNewTodo 0.5s ease-in-out;
+}
+.Delete-Animation{
+  animation: DeleteAnimation 0.3s ease-out forwards;
+}
+
+@keyframes addNewTodo {
+  0%{
+    transform: translateY(10px);
+  }
+  100%{
+    transform: translateY(0px);
+  }
+}
+@keyframes DeleteAnimation{
+  100%{
+    transform: translateX(110%);
+  }
+}
+
+.auth-form{
+  max-width: 600px;
+  margin: 0 auto;
+}
+.updateTodoForm{
+
+}
+
+.nav-item:hover{
+  background-color: #7847e0;
+
 }

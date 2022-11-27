@@ -1,4 +1,5 @@
 ﻿using TodoApp.Database;
+using TodoApp.Models.DTOS;
 using TodoApp.Models.Entity;
 using TodoApp.Services.Interfaces;
 
@@ -14,12 +15,12 @@ public class TodoBusiness : ITodoBusiness
         _unitOfWork = unitOfWork;
         _userIdProvider = userIdProvider;
     }
-    public Todo Add(string content)
+    public Todo Add(CreateTodoDTO createTodoDto)
     {
         var todo = new Todo()
         {
-            Content = content,
-            TodoListId = 1,
+            Content = createTodoDto.Content,
+            TodoListId = createTodoDto.ListId,
             OwnerId = _userIdProvider.GetCurrentUserId()
         };
         _unitOfWork.TodoRepo.Create(todo);

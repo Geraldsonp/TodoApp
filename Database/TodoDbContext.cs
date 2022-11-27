@@ -23,6 +23,7 @@ public class TodoDbContext : IdentityDbContext<User>
             .HasForeignKey(x => x.OwnerId);
 
         builder.Entity<Todo>().HasQueryFilter(todo => todo.OwnerId == _userIdProvider.GetCurrentUserId());
+        builder.Entity<TodoList>().HasQueryFilter(todo => todo.OwnerId == _userIdProvider.GetCurrentUserId());
 
     }
 

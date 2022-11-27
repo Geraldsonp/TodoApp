@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TodoApp.Services.Interfaces;
 
 namespace TodoApp.Controllers;
 
+[Authorize]
 public class TodoListController : Controller
 {
     private readonly ITodoListBusiness _todoListBusiness;

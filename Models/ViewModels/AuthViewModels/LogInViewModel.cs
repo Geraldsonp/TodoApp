@@ -8,7 +8,7 @@ public class LogInViewModel
     public string UserName { get; set; }
     [Required, DataType(DataType.Password)]
     public string Password { get; set; }
-
     public AuthResult? Result { get; set; }
+    public bool IsDemoUser { get; set; }
     
 }

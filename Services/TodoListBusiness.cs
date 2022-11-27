@@ -7,10 +7,12 @@ namespace TodoApp.Services.Interfaces;
 public class TodoListBusiness : ITodoListBusiness
 {
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IUserIdProvider _userIdProvider;
 
-    public TodoListBusiness(IUnitOfWork unitOfWork)
+    public TodoListBusiness(IUnitOfWork unitOfWork, IUserIdProvider userIdProvider)
     {
         _unitOfWork = unitOfWork;
+        _userIdProvider = userIdProvider;
     }
 
     public TodoListDto GetTodosList(int listId)
@@ -60,6 +62,34 @@ public class TodoListBusiness : ITodoListBusiness
                     }
                 };
             });
-        return lists;
+
+        var todoListDtos = lists.ToList();
+
+        if (!todoListDtos.Any())
+        {
+            return CreateDemoList();
+        }
+
+        return todoListDtos;
+    }
+
+    private IEnumerable<TodoListDto> CreateDemoList()
+    {
+        var demoList = new TodoList()
+        {
+            ListName = "Demo List",
+            OwnerId = _userIdProvider.GetCurrentUserId()
+        };
+
+        _unitOfWork.TodoListRepo.Create(demoList);
+        _unitOfWork.SaveChanges();
+
+        return new[]
+                { new TodoListDto()
+                    {
+                        ListName = demoList.ListName,
+                        Id = demoList.Id,
+                        Todos = demoList.Todos
+                    }};
     }
 }

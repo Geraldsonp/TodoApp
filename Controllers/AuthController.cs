@@ -39,6 +39,19 @@ public class AuthController : Controller
     }
 
     [HttpGet]
+    public async Task<IActionResult> DemoLogIn()
+    {
+        var viewModel = new LogInViewModel()
+        {
+            UserName = "John_Doe",
+            Password = "jRx3kVh7W3HNkJ8"
+        };
+        var result = await _userBusiness.SingIn(viewModel);
+
+        return RedirectToAction("index", "Todo");
+    }
+
+    [HttpGet]
     public IActionResult SingUp()
     {
         return View();

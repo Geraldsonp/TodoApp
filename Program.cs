@@ -2,6 +2,7 @@ using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TodoApp.Database;
+using TodoApp.Helpers;
 using TodoApp.Models;
 using TodoApp.Models.Entity;
 using TodoApp.Services;
@@ -16,7 +17,7 @@ builder.Services.AddAuthorization();
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddDbContext<TodoDbContext>(x =>
-    x.UseSqlite(builder.Configuration.GetConnectionString("Default"))
+    x.UseNpgsql(PostgresHelper.GetConnectionString(builder.Configuration))
         .UseLazyLoadingProxies());
 
 builder.Services.Configure<JwtSettings>(builder.Configuration);

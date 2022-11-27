@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using TodoApp.Models.DTOS;
 using TodoApp.Models.ViewModels.TodoViewModels;
 using TodoApp.Services.Interfaces;
 
@@ -27,9 +28,9 @@ public class TodoController : Controller
     }
 
     [HttpPost]
-    public IActionResult Create([FromBody] string content)
+    public IActionResult Create([FromBody] CreateTodoDTO createTodoDto)
     {
-        var todoItem = _todoBusiness.Add(content);
+        var todoItem = _todoBusiness.Add(createTodoDto);
         return Ok(todoItem);
     }
 
@@ -37,7 +38,7 @@ public class TodoController : Controller
     public IActionResult Delete(int id)
     {
          _todoBusiness.Remove(id);
-        return NoContent();
+        return Ok($"Todo with id: {id} deleted successfully");
     }
     
     [HttpPost]

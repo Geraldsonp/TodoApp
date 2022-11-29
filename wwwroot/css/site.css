@@ -12,7 +12,10 @@ input[type=checkbox]
   transform: scale(1.5);
   padding: 10px;
 }
-
+main{
+  max-width: 720px;
+  margin: auto;
+}
 @media (min-width: 768px) {
   html {
     font-size: 16px;
@@ -27,14 +30,75 @@ html {
 body {
   margin-bottom: 60px;
 }
-.TodoItem > div + a {
+
+
+.auth-form{
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.nav-item:hover{
+  background-color: #7847e0;
+}
+
+.TodoListItem{
+  border-bottom: rgb(255, 0, 234) solid 1px;
+  margin-bottom: 3px;
+}
+
+
+/* TodoItem Styles */
+.todo-content{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 80%;
+}
+
+.TodoListItem > .todo-buttons-container{
   visibility: hidden;
   opacity: 0;
-  transition: opacity 0.5s linear;
+  transition: opacity 0.5s ease-in-out;
 }
-.TodoItem:hover > div + a {
+.TodoListItem:hover > .todo-buttons-container {
   visibility: visible;
   opacity: 1;
+}
+
+.svgArrow{
+  cursor: pointer;
+  padding: 3px 8px;
+  margin-right: 0;
+  border-radius: 3px;
+  display: none;
+  background-color: #180229;
+}
+.todo-buttons-container{
+  width: 120px;
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  align-content: space-between;
+  max-width: 300px;
+}
+
+@media only screen and (max-width: 600px) {
+
+  .todo-content{
+    max-width: 280px;
+  }
+
+  .TodoListItem > .todo-buttons-container{
+    visibility: visible;
+    opacity: 1;
+    transition: max-width 0.5s ease-in-out ;
+  }
+  .svgArrow{
+    display: block;
+  }
+  .btn-container-size{
+    max-width: 0;
+  }
 }
 
 .TodoItem:hover  {
@@ -42,8 +106,9 @@ body {
   cursor: pointer;
 }
 
-.TodoLabel{
-
+.TodoItem{
+  padding: 5px 0;
+  max-width: 100%;
 }
 input:disabled{
   text-decoration-line: line-through;
@@ -68,17 +133,4 @@ input:disabled{
   100%{
     transform: translateX(110%);
   }
-}
-
-.auth-form{
-  max-width: 600px;
-  margin: 0 auto;
-}
-.updateTodoForm{
-
-}
-
-.nav-item:hover{
-  background-color: #7847e0;
-
 }

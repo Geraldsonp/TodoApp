@@ -43,8 +43,15 @@ public class TodoController : Controller
             return BadRequest("List has too many items please remove some or create a new list");
         }
 
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
         _todoListBusiness.DoesExist(createTodoDto.ListId);
+
         var todoItem = _todoBusiness.Add(createTodoDto);
+
         return Ok(todoItem);
     }
 

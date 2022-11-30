@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Net;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TodoApp.Models.DTOS;
 using TodoApp.Models.ViewModels.TodoViewModels;
@@ -10,10 +11,12 @@ namespace TodoApp.Controllers;
 public class TodoController : Controller
 {
     private readonly ITodoBusiness _todoBusiness;
+    private readonly ITodoListBusiness _todoListBusiness;
 
-    public TodoController(ITodoBusiness todoBusiness)
+    public TodoController(ITodoBusiness todoBusiness, ITodoListBusiness todoListBusiness)
     {
         _todoBusiness = todoBusiness;
+        _todoListBusiness = todoListBusiness;
     }
 
     // GET
@@ -30,6 +33,17 @@ public class TodoController : Controller
     [HttpPost]
     public IActionResult Create([FromBody] CreateTodoDTO createTodoDto)
     {
+        if (!_todoListBusiness.DoesExist(createTodoDto.ListId))
+        {
+            return BadRequest("List with specified id does Not Exist");
+        }
+
+        if (!_todoListBusiness.HasSpace(createTodoDto.ListId))
+        {
+            return BadRequest("List has too many items please remove some or create a new list");
+        }
+
+        _todoListBusiness.DoesExist(createTodoDto.ListId);
         var todoItem = _todoBusiness.Add(createTodoDto);
         return Ok(todoItem);
     }
@@ -38,7 +52,7 @@ public class TodoController : Controller
     public IActionResult Delete(int id)
     {
          _todoBusiness.Remove(id);
-        return Ok($"Todo with id: {id} deleted successfully");
+        return Ok($"Todo item deleted successfully");
     }
     
     [HttpPost]

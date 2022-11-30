@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TodoApp.Models.ViewModels;
 using TodoApp.Services.Interfaces;
 
 namespace TodoApp.Controllers;
 
+[AllowAnonymous]
 public class AuthController : Controller
 {
     private readonly IUserBusiness _userBusiness;
@@ -12,10 +14,16 @@ public class AuthController : Controller
     {
         _userBusiness = userBusiness;
     }
+
     // GET
     [HttpGet]
     public IActionResult LogIn()
     {
+        if (HttpContext.User.Identity.IsAuthenticated)
+        {
+            return RedirectToAction("index", "Todo");
+        }
+
         return View();
     }
 
@@ -54,6 +62,11 @@ public class AuthController : Controller
     [HttpGet]
     public IActionResult SingUp()
     {
+        if (HttpContext.User.Identity.IsAuthenticated)
+        {
+            return RedirectToAction("index", "Todo");
+        }
+
         return View();
     }
 

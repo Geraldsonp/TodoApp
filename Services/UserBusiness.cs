@@ -41,7 +41,7 @@ public class UserBusiness : IUserBusiness
         }
         else
         {
-            return new AuthResult(result.Succeeded, result.Errors.Select(x => x.Description).ToString());
+            return new AuthResult(result.Succeeded, result.Errors.FirstOrDefault().Description);
         }
     }
 

@@ -4,11 +4,11 @@ namespace TodoApp.Models.ViewModels;
 
 public class SingUpViewModel
 {
-    [Required]
+    [Required, DataType(DataType.Text), RegularExpression("[a-zA-Z][a-zA-Z0-9-_]{3,32}", ErrorMessage = "Must start with an alphabetic character. Can contain the following characters: a-z A-Z 0-9 - and _")]
     public string? FullName { get; set; }
-    [Required]
+    [Required, DataType(DataType.Text), RegularExpression("[a-zA-Z][a-zA-Z0-9-_]{3,32}", ErrorMessage = "Must start with an alphabetic character. Can contain the following characters: a-z A-Z 0-9 - and _")]
     public string? UserName { get; set; }
-    [Required, MinLength(3, ErrorMessage = "Password must be at least 3")]
+    [Required, DataType(DataType.Text), MinLength(3, ErrorMessage = "Password must be at least 3")]
     public string? Password { get; set; }
 
     [Required, DataType(DataType.Password)]

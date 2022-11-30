@@ -21,15 +21,15 @@
 
             <p class="text-center">Please Enter your log in credentials</p>
 
-            <input asp-for="UserName" class="form-control " type="text" id="UserName" placeholder="User Name">
+            <input required asp-for="UserName" class="form-control " type="text" id="UserName" placeholder="User Name">
 
-            <input asp-for="Password" class="form-control mt-3" type="password" placeholder="Password">
+            <input required asp-for="Password" class="form-control mt-3" type="password" placeholder="Password">
 
             <a asp-action="SingUp" class="link-danger d-block mt-4 text-center btn">Dont have and Account? Sing up</a>
 
             <button type="submit" class="btn-outline-primary btn my-3 w-50">Log In</button>
 
-            <a asp-controller="Auth" asp-action="DemoLogIn" class="d-block w-25 text-center btn btn-outline-warning my-3">Demo It</a>
+            <a asp-controller="Auth" asp-action="DemoLogIn" class="d-block w-50 text-center btn btn-outline-warning my-3">Demo It</a>
         </form>
     </div>
 </div>

@@ -11,4 +11,5 @@ public interface ITodoListBusiness
     TodoList RenameList(int listId, string newName);
     bool DoesExist(int listId);
     IEnumerable<TodoListDto> GetTodosList();
+    bool HasSpace(int listId);
 }

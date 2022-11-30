@@ -73,6 +73,19 @@ public class TodoListBusiness : ITodoListBusiness
         return todoListDtos;
     }
 
+    public bool HasSpace(int listId)
+    {
+        var totalTodoItems = _unitOfWork.TodoListRepo.Get(listId).Todos.Count;
+        if (totalTodoItems >= 12)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
     private IEnumerable<TodoListDto> CreateDemoList()
     {
         var demoList = new TodoList()

@@ -97,5 +97,4 @@ public class TodoController : Controller
         var todo = _todoBusiness.Update(id, content);
         return Ok(todo);
     }
-
 }

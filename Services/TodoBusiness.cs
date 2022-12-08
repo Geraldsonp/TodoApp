@@ -1,4 +1,4 @@
-﻿using TodoApp.Database;
+﻿using TodoApp.Models;
 using TodoApp.Models.DTOS;
 using TodoApp.Models.Entity;
 using TodoApp.Services.Interfaces;
@@ -15,40 +15,73 @@ public class TodoBusiness : ITodoBusiness
         _unitOfWork = unitOfWork;
         _userIdProvider = userIdProvider;
     }
-    public Todo Add(CreateTodoDTO createTodoDto)
+    public Result<Todo> Add(CreateTodoDTO createTodoDto)
     {
+        if (!_unitOfWork.TodoListRepo.DoesExist(createTodoDto.ListId))
+        {
+            return new Result<Todo>(ErrorTypes.EntityNotFound);
+        }
+
+        var list = _unitOfWork.TodoListRepo.Get(createTodoDto.ListId);
+
+        if (list.Todos.Count >= 12)
+        {
+            return new Result<Todo>(ErrorTypes.ListDoesNotHasSpace);
+        }
+
         var todo = new Todo()
         {
             Content = createTodoDto.Content,
             TodoListId = createTodoDto.ListId,
             OwnerId = _userIdProvider.GetCurrentUserId()
         };
+
         _unitOfWork.TodoRepo.Create(todo);
         _unitOfWork.SaveChanges();
 
-        return todo;
+        return new Result<Todo>(todo);
     }
 
-    public void Remove(int id)
+    public Result<Todo> Remove(int id)
     {
-        var todo = _unitOfWork.TodoRepo.Get(id);
+        var doesExist = _unitOfWork.TodoRepo.DoesExist(id);
 
-        _unitOfWork.TodoRepo.Delete(todo);
+        if (doesExist)
+        {
+            var todo = _unitOfWork.TodoRepo.Get(id);
 
-        _unitOfWork.SaveChanges();
+            _unitOfWork.TodoRepo.Delete(todo);
+
+            _unitOfWork.SaveChanges();
+
+            return new Result<Todo>(true);
+        }
+
+        return new Result<Todo>(ErrorTypes.EntityNotFound);
     }
 
-    public Todo Update(int id, string newContent)
+    public Result<Todo> Update(int id, string newContent)
     {
-        var todo = _unitOfWork.TodoRepo.Get(id);
-        todo.Content = newContent;
-        _unitOfWork.SaveChanges();
-        return todo;
+        var doesExist = _unitOfWork.TodoRepo.DoesExist(id);
+
+        if (doesExist)
+        {
+            var todo = _unitOfWork.TodoRepo.Get(id);
+            todo.Content = newContent;
+            _unitOfWork.SaveChanges();
+
+            return new Result<Todo>(todo);
+        }
+
+
+        return new Result<Todo>(ErrorTypes.EntityNotFound);
     }
 
     public Todo Get(int id)
     {
+
         throw new NotImplementedException();
+
     }
 
     public IEnumerable<Todo> GetAll()

@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using TodoApp.Models;
 using TodoApp.Models.DTOS;
 using TodoApp.Models.ViewModels.TodoViewModels;
 using TodoApp.Services.Interfaces;
@@ -33,33 +34,40 @@ public class TodoController : Controller
     [HttpPost]
     public IActionResult Create([FromBody] CreateTodoDTO createTodoDto)
     {
-        if (!_todoListBusiness.DoesExist(createTodoDto.ListId))
-        {
-            return BadRequest("List with specified id does Not Exist");
-        }
-
-        if (!_todoListBusiness.HasSpace(createTodoDto.ListId))
-        {
-            return BadRequest("List has too many items please remove some or create a new list");
-        }
-
         if (!ModelState.IsValid)
         {
             return BadRequest(ModelState);
         }
 
-        _todoListBusiness.DoesExist(createTodoDto.ListId);
+        var result = _todoBusiness.Add(createTodoDto);
 
-        var todoItem = _todoBusiness.Add(createTodoDto);
+        if (!result.Succeded)
+        {
+            switch (result.ErrorType)
+            {
+                case ErrorTypes.EntityNotFound:
+                    return NotFound(result.ErrorMessage);
+                case ErrorTypes.ListDoesNotHasSpace:
+                    return BadRequest(result.ErrorMessage);
+                default:
+                    return BadRequest();
+            }
+        }
 
-        return Ok(todoItem);
+        return Ok(result.Data);
     }
 
     [HttpPost]
     public IActionResult Delete(int id)
     {
-         _todoBusiness.Remove(id);
-        return Ok($"Todo item deleted successfully");
+        var result =  _todoBusiness.Remove(id);
+
+        if (result.Succeded)
+        {
+            return Ok($"Todo item deleted successfully");
+        }
+
+        return NotFound(result.ErrorMessage);
     }
     
     [HttpPost]

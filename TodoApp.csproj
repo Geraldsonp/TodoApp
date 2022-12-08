@@ -27,6 +27,27 @@
     <ItemGroup>
       <_ContentIncludedByDefault Remove="Views\Home\Index.cshtml" />
       <_ContentIncludedByDefault Remove="Views\Home\Privacy.cshtml" />
+      <_ContentIncludedByDefault Remove="TodoApp.Test\obj\project.assets.json" />
+      <_ContentIncludedByDefault Remove="TodoApp.Test\obj\project.packagespec.json" />
+      <_ContentIncludedByDefault Remove="TodoApp.Test\obj\TodoApp.Test.csproj.nuget.dgspec.json" />
+      <_ContentIncludedByDefault Remove="TodoApp.Test\bin\Debug\net6.0\TodoApp.Test.deps.json" />
+      <_ContentIncludedByDefault Remove="TodoApp.Test\bin\Debug\net6.0\TodoApp.Test.runtimeconfig.json" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="TodoApp.Test\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="TodoApp.Test\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="TodoApp.Test\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Remove="TodoApp.Test\**" />
     </ItemGroup>
 
 </Project>

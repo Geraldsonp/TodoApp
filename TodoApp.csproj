@@ -24,36 +24,5 @@
       <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.1" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Compile Remove="TodoApp.Test\**" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <EmbeddedResource Remove="TodoApp.Test\**" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <None Remove="TodoApp.Test\**" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Content Remove="TodoApp.Test\**" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <_ContentIncludedByDefault Remove="TodoApp.Test\bin\Debug\net6.0\appsettings.Development.json" />
-      <_ContentIncludedByDefault Remove="TodoApp.Test\bin\Debug\net6.0\appsettings.json" />
-      <_ContentIncludedByDefault Remove="TodoApp.Test\bin\Debug\net6.0\TodoApp.deps.json" />
-      <_ContentIncludedByDefault Remove="TodoApp.Test\bin\Debug\net6.0\TodoApp.runtimeconfig.json" />
-      <_ContentIncludedByDefault Remove="TodoApp.Test\bin\Debug\net6.0\TodoApp.staticwebassets.runtime.json" />
-      <_ContentIncludedByDefault Remove="TodoApp.Test\bin\Debug\net6.0\TodoApp.Test.deps.json" />
-      <_ContentIncludedByDefault Remove="TodoApp.Test\bin\Debug\net6.0\TodoApp.Test.runtimeconfig.json" />
-      <_ContentIncludedByDefault Remove="TodoApp.Test\obj\project.assets.json" />
-      <_ContentIncludedByDefault Remove="TodoApp.Test\obj\project.packagespec.json" />
-      <_ContentIncludedByDefault Remove="TodoApp.Test\obj\TodoApp.Test.csproj.nuget.dgspec.json" />
-    </ItemGroup>
-    
-
-  
 
 </Project>

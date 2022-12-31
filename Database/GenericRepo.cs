@@ -6,6 +6,7 @@ namespace TodoApp.Database;
 
 public class GenericRepo<T> : IGenericRepo<T> where T : BaseEntity
 {
+    //Test
     private readonly TodoDbContext _context;
     private readonly DbSet<T> _dbSet;
 
